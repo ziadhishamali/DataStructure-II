@@ -23,10 +23,10 @@ public class Heap<T extends Comparable<T>> implements IHeap {
 		
 		@Override
 		public INode getLeftChild() {
-			if (2 * index >= size ) {
+			if (2 * index + 1 >= size ) {
 				return null;
 			} else {
-				INode node = arr.get(2 * index);
+				INode node = arr.get(2 * index + 1);
 				return node;
 			}
 			
@@ -34,20 +34,20 @@ public class Heap<T extends Comparable<T>> implements IHeap {
 
 		@Override
 		public INode getRightChild() {
-			if (2 * index + 1 >= size ) {
+			if (2 * index + 2 >= size ) {
 				return null;
 			} else {
-				INode node = arr.get(2 * index + 1);
+				INode node = arr.get(2 * index + 2);
 				return node;
 			}		
 		}
 
 		@Override
 		public INode getParent() {
-			if (index / 2  >= size ) {
+			if ((index - 1) / 2  >= size || (index - 1) / 2 < 0) {
 				return null;
 			} else {
-				INode node = arr.get(index / 2);
+				INode node = arr.get((index - 1) / 2);
 				return node;
 			}	
 		}
@@ -75,18 +75,22 @@ public class Heap<T extends Comparable<T>> implements IHeap {
 				INode node = arr.get(index);
 				node.setValue(value);
 			}
-
 		}
+		
 	}
 	
 	@Override
 	public INode getRoot() {
-		return null;
+		if (size == 0) {
+			return null;
+		} else {
+			return arr.get(0);
+		}
 	}
 
 	@Override
 	public int size() {
-		return 0;
+		return size;
 	}
 
 	@Override
