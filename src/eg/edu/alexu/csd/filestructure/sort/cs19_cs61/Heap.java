@@ -1,11 +1,84 @@
 package eg.edu.alexu.csd.filestructure.sort.cs19_cs61;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import eg.edu.alexu.csd.filestructure.sort.IHeap;
 import eg.edu.alexu.csd.filestructure.sort.INode;
 
-public class Heap implements IHeap {
+public class Heap<T extends Comparable<T>> implements IHeap {
+	
+	ArrayList<INode<T>> arr = new ArrayList<>();
+	int size = arr.size();
+	
+	
+	private class Node<T extends Comparable<T>> implements INode {
+		
+		private int index;
+		private T value;
+		
+		public Node (int i) {
+			this.index = i;
+		}
+		
+		@Override
+		public INode getLeftChild() {
+			if (2 * index >= size ) {
+				return null;
+			} else {
+				INode node = arr.get(2 * index);
+				return node;
+			}
+			
+		}
+
+		@Override
+		public INode getRightChild() {
+			if (2 * index + 1 >= size ) {
+				return null;
+			} else {
+				INode node = arr.get(2 * index + 1);
+				return node;
+			}		
+		}
+
+		@Override
+		public INode getParent() {
+			if (index / 2  >= size ) {
+				return null;
+			} else {
+				INode node = arr.get(index / 2);
+				return node;
+			}	
+		}
+
+		@Override
+		public Comparable getValue() {
+			if (index >= size) {
+				return null;
+			} else {
+				INode node = arr.get(index);
+				return node.getValue();
+			}
+		}
+
+		@Override
+		public void setValue(Comparable value) {
+			if (index >= size) {
+				try {
+					throw new Exception();
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			} else {
+				INode node = arr.get(index);
+				node.setValue(value);
+			}
+
+		}
+	}
+	
 	@Override
 	public INode getRoot() {
 		return null;
@@ -35,4 +108,8 @@ public class Heap implements IHeap {
 	public void build(Collection unordered) {
 
 	}
+	
+
+
+	
 }
